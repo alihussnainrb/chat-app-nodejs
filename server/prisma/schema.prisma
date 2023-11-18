@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Location {
+  id       String    @id @default(uuid())
+  lat      Float     @unique
+  lng      Float     @unique
+  channels Channel[]
+}
+
+model Channel {
+  id         String    @id @default(uuid())
+  name       String
+  locationId String
+  location   Location  @relation(fields: [locationId], references: [id])
+  messages   Message[]
+  admin      User      @relation(fields: [adminId], references: [id])
+  adminId    String
+  createdAt  DateTime  @default(now())
+}
+
+model User {
+  id       String    @id @default(uuid())
+  name     String
+  username String    @unique
+  password String
+  // locationId String
+  // location   Location  @relation(fields: [locationId], references: [id])
+  messages Message[]
+  channels Channel[]
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  body      String
+  sender    User     @relation(fields: [senderId], references: [id])
+  senderId  String
+  channel   Channel  @relation(fields: [channelId], references: [id])
+  channelId String
+  timestamp DateTime @default(now())
+
+  @@index([id])
+}
