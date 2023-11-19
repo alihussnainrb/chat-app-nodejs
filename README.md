@@ -3,6 +3,7 @@
 [https://chat-app.alihussnainrb.com](https://chat-app.alihussnainrb.com/)
 
 This project is a chat web application built with Node.js for the backend and Next.js for the client.
+Users can signup/signin, create channel,see and chat in nearby channels (nearby in radius of 20km).
 
 **API Documentation:** [Postman API Endpoints](https://documenter.getpostman.com/view/12373135/2s9Ye8eufs)
 

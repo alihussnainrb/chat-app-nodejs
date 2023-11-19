@@ -23,13 +23,18 @@ import Spinner from "./ui/spinner";
 import useChatStore from "@/lib/stores/use-chat";
 import apiClient from "@/lib/api";
 import { useEffect, useState } from "react";
-import { useGeoLocation } from "./geolocation";
 import { useToast } from "./ui/use-toast";
+import { useGeolocated } from "react-geolocated";
 
 export default function AddChannelForm() {
+  const { coords: locationCoords } = useGeolocated({
+    positionOptions: {
+      enableHighAccuracy: false,
+    },
+    userDecisionTimeout: 5000,
+  });
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
-  const location = useGeoLocation();
   const { setMyChannels, myChannels } = useChatStore();
   const form = useForm<AddChannelSchema>({
     resolver: zodResolver(addChannelSchema),
@@ -39,15 +44,14 @@ export default function AddChannelForm() {
   });
 
   useEffect(() => {
-    console.log(location);
-    if (!location?.currentLocation) return;
-    form.setValue("location.lat", location?.currentLocation?.lat);
-    form.setValue("location.lng", location?.currentLocation?.lng);
-  }, [form, location]);
+    if (!locationCoords) return;
+    form.setValue("location.lat", locationCoords.latitude);
+    form.setValue("location.lng", locationCoords.longitude);
+  }, [form, locationCoords]);
 
   const handleSubmit = async (values: AddChannelSchema) => {
     if (values.name.trim() === "") return;
-    if (!location?.currentLocation) {
+    if (!locationCoords) {
       return toast({
         title: "Allow location to continue.",
         variant: "destructive",

@@ -6,26 +6,26 @@ import { Prisma } from "@prisma/client";
 
 const channelsRouter = express.Router();
 
-const EARTH_RADIUS = 6371 as const;
+// const EARTH_RADIUS = 6371 as const;
 
-function calculateLatLngDistance(
-  lat1: number,
-  lng1: number,
-  lat2: number,
-  lng2: number
-) {
-  const dLat = (lat2 - lat1) * (Math.PI / 180);
-  const dLng = (lng2 - lng1) * (Math.PI / 180);
-  const a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(lat1 * (Math.PI / 180)) *
-      Math.cos(lat2 * (Math.PI / 180)) *
-      Math.sin(dLng / 2) *
-      Math.sin(dLng / 2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  const distance = EARTH_RADIUS * c; // Distance in kilometers
-  return distance;
-}
+// function calculateLatLngDistance(
+//   lat1: number,
+//   lng1: number,
+//   lat2: number,
+//   lng2: number
+// ) {
+//   const dLat = (lat2 - lat1) * (Math.PI / 180);
+//   const dLng = (lng2 - lng1) * (Math.PI / 180);
+//   const a =
+//     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+//     Math.cos(lat1 * (Math.PI / 180)) *
+//       Math.cos(lat2 * (Math.PI / 180)) *
+//       Math.sin(dLng / 2) *
+//       Math.sin(dLng / 2);
+//   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+//   const distance = EARTH_RADIUS * c; // Distance in kilometers
+//   return distance;
+// }
 
 /* Radius in kilometers */
 const CHANNELS_FILTER_RADIUS = 20 as const;
@@ -42,8 +42,8 @@ channelsRouter.get(
       }),
     },
     handler: async ({ authUser, query }) => {
-      const centerLatitude = 40.7128;
-      const centerLongitude = -74.006;
+      const targetLatitude = query.lat;
+      const targetLongitude = query.lng;
       const channels = await db.channel.findMany({
         where: {
           adminId: { not: authUser.id },
@@ -51,20 +51,20 @@ channelsRouter.get(
             AND: [
               {
                 lat: {
-                  gte: centerLatitude - CHANNELS_FILTER_RADIUS / 111,
-                  lte: centerLatitude + CHANNELS_FILTER_RADIUS / 111,
+                  gte: targetLatitude - CHANNELS_FILTER_RADIUS / 111,
+                  lte: targetLatitude + CHANNELS_FILTER_RADIUS / 111,
                 },
               },
               {
                 lng: {
                   gte:
-                    centerLongitude -
+                    targetLongitude -
                     CHANNELS_FILTER_RADIUS /
-                      (111 * Math.cos(centerLatitude * (Math.PI / 180))),
+                      (111 * Math.cos(targetLatitude * (Math.PI / 180))),
                   lte:
-                    centerLongitude +
+                    targetLongitude +
                     CHANNELS_FILTER_RADIUS /
-                      (111 * Math.cos(centerLatitude * (Math.PI / 180))),
+                      (111 * Math.cos(targetLatitude * (Math.PI / 180))),
                 },
               },
             ],
@@ -78,8 +78,8 @@ channelsRouter.get(
 
       // const filteredChannels = channels.filter((channel) => {
       //   const distance = calculateLatLngDistance(
-      //     centerLatitude,
-      //     centerLongitude,
+      //     targetLatitude,
+      //     targetLongitude,
       //     channel.location.lat,
       //     channel.location.lng
       //   );

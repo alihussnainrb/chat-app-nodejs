@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import apiClient from "@/lib/api";
 import { cn } from "@/lib/utils";
 import useAuthUser from "@/lib/stores/use-auth";
-import { useGeoLocation } from "./geolocation";
+import { useGeolocated } from "react-geolocated";
 
 type Props = {
   className?: string;
@@ -15,7 +15,12 @@ type Props = {
 
 export default function ChatsSideBar({ className = "" }: Props) {
   const { authUser } = useAuthUser();
-  const location = useGeoLocation();
+  const { coords: locationCoords } = useGeolocated({
+    positionOptions: {
+      enableHighAccuracy: false,
+    },
+    userDecisionTimeout: 5000,
+  });
   const {
     myChannels,
     setMyChannels,
@@ -37,9 +42,14 @@ export default function ChatsSideBar({ className = "" }: Props) {
   }, [setMyChannels]);
 
   useEffect(() => {
-    if (location?.currentLocation) loadNearbyChannels(location.currentLocation);
+    if (locationCoords) {
+      loadNearbyChannels({
+        lat: locationCoords.latitude,
+        lng: locationCoords.longitude,
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location]);
+  }, [locationCoords]);
 
   return (
     <div

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import GeoLocationProvider from "@/components/geolocation";
 import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(inter.className, "bg-white text-black")}>
-        <GeoLocationProvider>{children}</GeoLocationProvider>
+        {children}
         <Toaster />
       </body>
     </html>
