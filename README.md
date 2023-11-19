@@ -16,7 +16,7 @@ The project has the following folder structure:
 
 ## Setup
 
-1. Run `npm install` in the root directory to install dependencies for both the client and server.
+1. Run `npm install` in the `root/client` and `root/server` directories to install dependencies.
 2. In the `root/server`, create a `.env` file and set the `DATABASE_URL` variable to your PostgreSQL database connection string.
 
    Example `.env` file in `root/server`:
@@ -41,3 +41,8 @@ To start the application in production environment:
 
 1. Run `npm run build` in `root/client` to build the Next.js client.
 2. After building the client, run `npm start` in `root/server` to start the server in production mode.
+
+## Runtime Instructions
+
+1. Location permission is mandatory
+2. When creating new channel it automatically picks the location and fill `latitude,langitude` values, (for testing purpose fields can be edited to add custom `latitude,langitude`)
