@@ -2,6 +2,8 @@
 
 This project is a chat web application built with Node.js for the backend and Next.js for the client.
 
+**Live Here:** [Chat Web App](https://chat-app.alihussnainrb.com/)
+
 ## Folder Structure
 
 The project has the following folder structure:
