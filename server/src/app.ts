@@ -157,6 +157,7 @@ function startServer() {
   });
 }
 
+/* If in Production environment prepare client app and then start server, otherwise just start server. */
 if (isDev) {
   startServer();
 } else {
