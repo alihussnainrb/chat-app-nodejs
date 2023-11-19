@@ -3,13 +3,13 @@
 [Live Demo](https://chat-app.alihussnainrb.com/)
 
 This project is a chat web application built with Node.js for the backend, Next.js for the client and Socket.IO for realtime messages.
-Users can signup/signin, create channel.
 
-**Channel Features**
+### Features
 
-1. Users can see and chat in their own channels and nearby channels in radius of 20km.
-2. Users can see online users of current channel they are chatting in.
-3. Users can see username of user who created channel.
+1. Users can signup/signin, create channel.
+2. Users can see and chat in their own channels and nearby channels in radius of 20km.
+3. Users can see online users of current channel they are chatting in.
+4. Users can see username of user who created channel.
 
 **API Documentation:** [Postman API Endpoints](https://documenter.getpostman.com/view/12373135/2s9Ye8eufs)
 
