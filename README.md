@@ -1,8 +1,8 @@
 # Chat Web App
 
-This project is a chat web application built with Node.js for the backend and Next.js for the client.
+**Live here:** [Chat Web App](https://chat-app.alihussnainrb.com/)
 
-**Live Here:** [Chat Web App](https://chat-app.alihussnainrb.com/)
+This project is a chat web application built with Node.js for the backend and Next.js for the client.
 
 ## Folder Structure
 
