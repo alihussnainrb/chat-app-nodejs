@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Chat Web App
 
-## Getting Started
+This project is a chat web application built with Node.js for the backend and Next.js for the client.
 
-First, run the development server:
+## Folder Structure
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+The project has the following folder structure:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- `root/client`: Contains the Next.js client code.
+- `root/server`: Holds the Node.js backend code.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. Run `npm install` in the root directory to install dependencies for both the client and server.
+2. In the `root/server`, create a `.env` file and set the `DATABASE_URL` variable to your PostgreSQL database connection string.
 
-## Learn More
+   Example `.env` file in `root/server`:
 
-To learn more about Next.js, take a look at the following resources:
+   ```plaintext
+   DATABASE_URL=your_postgresql_connection_string
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Run `npm run migrate` in `root/server` to perform database migrations.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+4. Set the `NEXT_PUBLIC_SERVER_BASE_URL` environment variable to the server's base URL. By default, it's `http://localhost:3000`.
 
-## Deploy on Vercel
+## Development Mode
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+To start the application in development mode:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Run `npm run dev` separately in both `root/server` and `root/client`.
+
+## Production Environment
+
+To start the application in production environment:
+
+1. Run `npm run build` in `root/client` to build the Next.js client.
+2. After building the client, run `npm start` in `root/server` to start the server in production mode.
