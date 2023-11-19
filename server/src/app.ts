@@ -14,11 +14,11 @@ import { NextServer } from "next/dist/server/next";
 
 /* Setup client app */
 
-const dev = process.env.NODE_ENV !== "production";
+const isDev = process.env.NODE_ENV !== "production";
 const hostname = "localhost";
 const port = 3000;
 let clientApp: NextServer | undefined;
-if (!dev) {
+if (!isDev) {
   clientApp = next({
     dev: false,
     hostname,
@@ -36,14 +36,20 @@ function startServer() {
   app.use(express.json());
   app.use(cookieParser());
   app.use(
-    corsMiddleware({ origin: "http://localhost:4000", credentials: true })
+    corsMiddleware({
+      origin: isDev ? "http://localhost:4000" : "",
+      credentials: true,
+    })
   );
   app.use(registerAuthMiddleware());
   app.use(express.urlencoded({ extended: false }));
 
   /* Socket IO Intialization */
   const sioServer = new SocketIOServer(server, {
-    cors: { origin: "http://localhost:4000", credentials: true },
+    cors: {
+      origin: isDev ? "http://localhost:4000" : "",
+      credentials: true,
+    },
   });
 
   /* Socket IO Middleware to extract accessToken */
@@ -139,7 +145,7 @@ function startServer() {
   app.use("/api", apiRouter);
 
   /* Mount Client App If Production Env */
-  if (!dev) {
+  if (!isDev) {
     app.get("*", (req, res) => {
       const parsedUrl = urlParser.parse(req.url, true);
       clientAppHandler?.(req, res, parsedUrl);
@@ -151,7 +157,7 @@ function startServer() {
   });
 }
 
-if (dev) {
+if (isDev) {
   startServer();
 } else {
   clientApp?.prepare().then(() => {
