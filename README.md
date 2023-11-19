@@ -4,7 +4,7 @@
 
 This project is a chat web application built with Node.js for the backend and Next.js for the client.
 
-**API Documentation:** <a href="https://documenter.getpostman.com/view/12373135/2s9Ye8eufs" target="_blank" rel="noopener noreferrer">Postman API Endpoints</a>
+**API Documentation:** [Postman API Endpoints](https://documenter.getpostman.com/view/12373135/2s9Ye8eufs)
 
 ## Folder Structure
 
