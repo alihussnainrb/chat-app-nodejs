@@ -4,6 +4,8 @@
 
 This project is a chat web application built with Node.js for the backend and Next.js for the client.
 
+**API Documentation:** [Postman API Endpoints](https://documenter.getpostman.com/view/12373135/2s9Ye8eufs)
+
 ## Folder Structure
 
 The project has the following folder structure:
