@@ -22,7 +22,7 @@ import { PlusIcon } from "@radix-ui/react-icons";
 import Spinner from "./ui/spinner";
 import useChatStore from "@/lib/stores/use-chat";
 import apiClient from "@/lib/api";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGeoLocation } from "./geolocation";
 import { useToast } from "./ui/use-toast";
 
@@ -37,6 +37,14 @@ export default function AddChannelForm() {
       name: "",
     },
   });
+
+  useEffect(() => {
+    console.log(location);
+    if (!location?.currentLocation) return;
+    form.setValue("location.lat", location?.currentLocation?.lat);
+    form.setValue("location.lng", location?.currentLocation?.lng);
+  }, [form, location]);
+
   const handleSubmit = async (values: AddChannelSchema) => {
     if (values.name.trim() === "") return;
     if (!location?.currentLocation) {
