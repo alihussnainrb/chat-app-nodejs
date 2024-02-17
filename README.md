@@ -6,7 +6,6 @@ This project is a chat web application built with Node.js for the backend, Next.
 
 **Features**
 
-
 1. Users can signup/signin, create channel.
 2. Users can see and chat in their own channels and nearby channels in radius of 20km.
 3. Users can see online users of current channel they are chatting in.
