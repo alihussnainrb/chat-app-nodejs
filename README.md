@@ -1,6 +1,5 @@
 # Chat Web App
 
-
 [Live Demo](https://chat-app.alihussnainrb.com/)
 
 This project is a chat web application built with Node.js for the backend, Next.js for the client and Socket.IO for realtime messages.
