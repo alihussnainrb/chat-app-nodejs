@@ -4,6 +4,7 @@
 
 This project is a chat web application built with Node.js for the backend, Next.js for the client and Socket.IO for realtime messages.
 
+
 **Features**
 
 1. Users can signup/signin, create channel.
